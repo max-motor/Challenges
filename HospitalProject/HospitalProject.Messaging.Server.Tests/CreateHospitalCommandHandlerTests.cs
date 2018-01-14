@@ -50,12 +50,10 @@ namespace HospitalProject.Messaging.Server.Tests
             await handler.Handle(command, handlerContext);
 
             // Assert
-            Assert.NotNull(handlerContext.PublishedMessages);
-            var domainEvents = handlerContext.PublishedMessages.Where(x => x.Message is HospitalCreatedEvent);
+            Assert.AreEqual(1, handlerContext.PublishedMessages.Length);
+            Assert.IsInstanceOf<HospitalCreatedEvent>(handlerContext.PublishedMessages[0].Message);
 
-            Assert.AreEqual(1, domainEvents.Count());
-
-            var message = domainEvents.First().Message as HospitalCreatedEvent;
+            var message = (HospitalCreatedEvent)handlerContext.PublishedMessages[0].Message;
             Assert.AreEqual(message.Name, command.Name);
             Assert.AreEqual(message.Address, command.Address);
         }
@@ -81,14 +79,13 @@ namespace HospitalProject.Messaging.Server.Tests
             var handler = new CreateHospitalCommandHandler(_domainService.Object);
 
             //Execute
-            await handler.Handle(command, handlerContext);
+            await handler.Handle(command, handlerContext).ConfigureAwait(false);
 
             // Assert
-            Assert.NotNull(handlerContext.PublishedMessages);
-            var domainEvents = handlerContext.PublishedMessages.Where(x => x.Message is HospitalCreateFailedEvent);
-            Assert.AreEqual(1, domainEvents.Count());
+            Assert.AreEqual(1, handlerContext.PublishedMessages.Length);
+            Assert.IsInstanceOf<HospitalCreateFailedEvent>(handlerContext.PublishedMessages[0].Message);
 
-            var message = domainEvents.First().Message as HospitalCreateFailedEvent;
+            var message = (HospitalCreateFailedEvent)handlerContext.PublishedMessages[0].Message;
             Assert.AreEqual(message.Name, command.Name);
             Assert.AreEqual(message.Address, command.Address);
         }

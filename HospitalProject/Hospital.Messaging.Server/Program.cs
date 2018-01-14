@@ -29,10 +29,10 @@ namespace HospitalProject.Messaging.Server
             endpointConfiguration.EnableInstallers();
 
             //TODO: Use CastleWindsor here
-            endpointConfiguration.RegisterComponents(cc =>
+            endpointConfiguration.RegisterComponents(configureComponents =>
             {
-                cc.ConfigureComponent<IHospitalDomainService>(() => new HospitalDomainService(new HospitalDbContext()), DependencyLifecycle.InstancePerCall);
-                cc.ConfigureComponent<HospitalDbContext>(DependencyLifecycle.InstancePerUnitOfWork);
+                configureComponents.ConfigureComponent<IHospitalDomainService>(() => new HospitalDomainService(new HospitalDbContext()), DependencyLifecycle.InstancePerCall);
+                configureComponents.ConfigureComponent<HospitalDbContext>(DependencyLifecycle.InstancePerUnitOfWork);
             });
 
             var endpointInstance = await Endpoint

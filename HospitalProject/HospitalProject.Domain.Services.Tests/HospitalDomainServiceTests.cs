@@ -26,6 +26,7 @@ namespace HospitalProject.Domain.Services.Tests
         [Test]
         public async Task CreateAsyncReturnsAlreadyExistsIfNameExists()
         {
+            //Setup
             var request = new CreateHospitalRequest
             {
                 Name = "Name",
@@ -51,6 +52,7 @@ namespace HospitalProject.Domain.Services.Tests
         [Test]
         public async Task CreateAsyncReturnsSuccessOnSuccess()
         {
+            //Setup
             var request = new CreateHospitalRequest
             {
                 Name = "Name",

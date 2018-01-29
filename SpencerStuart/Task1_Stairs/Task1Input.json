@@ -1,0 +1,14 @@
+﻿[
+  {
+    "Flights": [ 15 ],
+    "StepsPerStride": 2
+  },
+  {
+    "Flights": [ 15, 15 ],
+    "StepsPerStride": 2
+  },
+  {
+    "Flights": [ 5, 11, 9, 13, 8, 30, 14 ],
+    "StepsPerStride": 3
+  }
+]
